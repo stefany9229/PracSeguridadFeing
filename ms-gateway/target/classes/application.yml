@@ -1,0 +1,43 @@
+spring:
+  security:
+    oauth2:
+      client:
+        provider:
+          api-gateway-service:
+            issuer-uri: http://localhost:8080/realms/ecommerce-realm
+        registration:
+          api-gateway-service:
+            provider: api-gateway-service
+            client-id: ms-gateway-client
+            client-secret: TscKIxoSPdFFJNZ1ii9o4WaPRYhT88Po
+            scope: openid
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:8090/login/oauth2/code/keycloak
+
+  cloud:
+    gateway:
+      default-filters:
+        - TokenRelay
+      routes:
+        - id: ms-bill
+          uri: lb://ms-bill
+          predicates:
+            - Path=/api/v1/**
+  application:
+    name: gateway
+
+server:
+  port: 8090
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
+    instance-id: ${spring.application.name}:${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}
+
+
+#spring.cloud.gateway.routes[0].filters=StripPrefix=2
