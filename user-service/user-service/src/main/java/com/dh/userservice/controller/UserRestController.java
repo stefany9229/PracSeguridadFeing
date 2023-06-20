@@ -3,6 +3,7 @@ package com.dh.userservice.controller;
 import com.dh.userservice.model.User;
 import com.dh.userservice.service.UserService;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,6 +16,7 @@ public class UserRestController {
         this.userService = userService;
     }
     @GetMapping("/find/{id}")
+    @PreAuthorize("hasAnyAuthority('GROUP_providers')")
     public User findById(@PathVariable Integer id){
         return userService.findById(id);
     }
