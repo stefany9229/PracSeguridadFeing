@@ -4,30 +4,33 @@ spring:
       client:
         provider:
           api-gateway-service:
-            issuer-uri: http://localhost:8080/realms/ecommerce-realm
+            issuer-uri: http://localhost:8080/realms/feing
         registration:
           api-gateway-service:
             provider: api-gateway-service
-            client-id: ms-gateway-client
-            client-secret: TscKIxoSPdFFJNZ1ii9o4WaPRYhT88Po
+            client-id: api-gateway-client
+            client-secret: eroDngoLvD1e3Zobh66uIZuMTkhJDsG4
             scope: openid
             authorization-grant-type: authorization_code
-            redirect-uri: http://localhost:8090/login/oauth2/code/keycloak
+            redirect-uri: http://localhost:9090/login/oauth2/code/keycloak
+  application:
+    name: gateway
 
   cloud:
     gateway:
       default-filters:
         - TokenRelay
       routes:
-        - id: ms-bill
-          uri: lb://ms-bill
+        - id: users-service
+          uri: http://localhost:8084
           predicates:
-            - Path=/api/v1/**
-  application:
-    name: gateway
+            - Path=/users/**
+          filters:
+            - StripPrefix=0
+
 
 server:
-  port: 8090
+  port: 9090
 
 eureka:
   client:
