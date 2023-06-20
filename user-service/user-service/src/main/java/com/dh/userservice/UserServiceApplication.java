@@ -8,7 +8,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableFeignClients
-@EnableAutoConfiguration(exclude = {SecurityAutoConfiguration.class})
+//@EnableAutoConfiguration(exclude = {SecurityAutoConfiguration.class})
 public class UserServiceApplication {
 
 	public static void main(String[] args) {

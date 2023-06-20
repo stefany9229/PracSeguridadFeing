@@ -13,8 +13,6 @@ import java.util.Collections;
 import static java.util.Objects.isNull;
 
 public class OAuthClientCredentialsFeignManager {
-
-
   private final OAuth2AuthorizedClientManager manager;
   private final Authentication principal;
   private final ClientRegistration clientRegistration;
@@ -66,9 +64,9 @@ public class OAuthClientCredentialsFeignManager {
   public String getAccessToken() {
     try {
       OAuth2AuthorizeRequest oAuth2AuthorizeRequest = OAuth2AuthorizeRequest
-          .withClientRegistrationId(clientRegistration.getRegistrationId())
-          .principal(principal)
-          .build();
+              .withClientRegistrationId(clientRegistration.getRegistrationId())
+              .principal(principal) //Authentication
+              .build();
       OAuth2AuthorizedClient client = manager.authorize(oAuth2AuthorizeRequest);
       if (isNull(client)) {
         throw new IllegalStateException("client credentials flow on " + clientRegistration.getRegistrationId() + " failed, client is null");

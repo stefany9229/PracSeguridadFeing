@@ -2,7 +2,6 @@ package com.dh.userservice.repository;
 
 
 import com.dh.userservice.model.SubscriptionDTO;
-import com.dh.userservice.security.feign.FeignInterceptor;
 import com.dh.userservice.security.feign.OAuthFeignConfig;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
