@@ -25,7 +25,7 @@ public class SubscriptionRestController {
         this.subscriptionService = subscriptionService;
     }
 
-    @GetMapping("/find/{userId}")
+    @GetMapping("/find")
     public Subscription findSubscriptionByUser(@RequestParam Integer userId){
 
 
